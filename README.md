@@ -6,7 +6,7 @@
 
    ```npx create-next-app@latest```
 
-  Use these settings:
+2. Use these settings:
   - What is your project named? `GGFit`
   - Would you like to use TypeScript? No / **Yes**
   - Would you like to use ESLint? No / **Yes**
