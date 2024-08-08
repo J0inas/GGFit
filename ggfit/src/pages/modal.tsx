@@ -3,19 +3,20 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import FormPropsTextFields from "@/pages/text";
+import SimpleText from "@/pages/text";
 
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 700,
+    height: 700,
     bgcolor: 'black',
-    border: '2px solid #000',
+    border: '1px solid #000',
     boxShadow: 24,
-    p: 4,
-    outline: true,
-    outlineColor: 'white',
+    p: 4
 };
 
 export default function BasicModal() {
@@ -25,7 +26,7 @@ export default function BasicModal() {
 
     return (
         <div>
-            <Button onClick={handleOpen}>Open modal</Button>
+            <Button variant="contained" onClick={handleOpen}>Registrieren</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -34,11 +35,12 @@ export default function BasicModal() {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
+                        Registrierung
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        Bitte geben Sie mir ihre Daten:
                     </Typography>
+                    <SimpleText/>
                 </Box>
             </Modal>
         </div>

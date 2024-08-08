@@ -1,3 +1,6 @@
+/*
+here you can change the major site
+ */
 .main {
   display: flex;
   flex-direction: column;
@@ -5,10 +8,13 @@
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
+  background: cornsilk;
 }
 
 .description {
   font-family: var(--font-mono);
+  color: black;
+  padding: 1rem;
 }
 
 .description a {
@@ -17,6 +23,8 @@
   align-items: center;
   gap: 0.5rem;
 }
+
+
 
 /*
 .description p {

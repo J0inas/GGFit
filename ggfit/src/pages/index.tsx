@@ -19,6 +19,7 @@ export default function Home() {
             <main className={`${styles.main} ${inter.className}`}>
                 <p className={styles.description}>
                     Become the best version of yourself - RIGHT NOW!
+
                 </p>
                 <p>
                     <BasicModal/>
