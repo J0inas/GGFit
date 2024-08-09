@@ -19,7 +19,16 @@
 
    ```cd ggfit```
 
-4. Run the Development Server
+4. Install Material Design Components
+   1. Run `npm install @mui/material @emotion/react @emotion/styled`
+   2. Run `npm install @mui/styled-engine-sc styled-components`
+   3. Run `npm install @mui/icons-material`
+
+5. Install React-Bootstrap Components
+   1. Run `npm install react-bootstrap`
+
+6. Run the Development Server
    1. Run `npm run dev` to start the development server.
    2. Visit `http://localhost:3000` to view your application.
    3. Edit the `pages/index.tsx` file and save it to see the updated result in your browser.
+
