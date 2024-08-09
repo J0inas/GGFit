@@ -21,10 +21,13 @@ export default function Home() {
             </Head>
             <main className={`${styles.main} ${inter.className}`}>
                 <h1>
-                    GGFIT
+                    Trainere heute.
                 </h1>
+                <h4>
+                    GGFit - Goal Gradient Fitness
+                </h4>
                 <p className={styles.description}>
-                   Werde noch heute die BESTE VERSION deines Lebens!
+                   Werde zu der BESTEN VERSION deines LEBENS!
                 </p>
                 <div>
                     <BasicModal/>

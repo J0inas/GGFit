@@ -8,7 +8,9 @@ here you can change the major site
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
-  background: black;
+  background-image: url("./images/gym.jpg");
+  background-size: cover;
+  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
 }
 
 .description {
