@@ -24,8 +24,8 @@
    2. Run `npm install @mui/styled-engine-sc styled-components`
    3. Run `npm install @mui/icons-material`
 
-5. Install React-Bootstrap Components
-   1. Run `npm install react-bootstrap`
+5. Install Progressbar Component
+   1. Run `npm install --save @ramonak/react-progress-bar`
 
 6. Run the Development Server
    1. Run `npm run dev` to start the development server.
