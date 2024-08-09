@@ -3,8 +3,6 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import BasicModal from "@/pages/modal";
-import ButtonAppBar from "@/pages/headerbar";
-import HeaderSegment from "@/pages/headerbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
