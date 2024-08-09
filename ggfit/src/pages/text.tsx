@@ -1,7 +1,10 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
 
+// So kann eine simple Textbox aussehen
 export default function SimpleText() {
     return (
         <Box
@@ -11,17 +14,14 @@ export default function SimpleText() {
             }}
             noValidate
             autoComplete="off"
-
         >
-            <TextField
-                id="standard-helperText"
-                label="Name"
-                defaultValue="Default Value"
-                helperText="Some important text"
-                variant="standard"
-                color="secondary"
-                focused
-            />
+            <FormControl>
+                <InputLabel htmlFor="component-outlined">Vorname</InputLabel>
+                <OutlinedInput
+                    id="component-outlined"
+                    label="Vorname"
+                />
+            </FormControl>
         </Box>
     );
 }
