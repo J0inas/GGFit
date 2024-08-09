@@ -8,12 +8,12 @@ here you can change the major site
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
-  background: cornsilk;
+  background: black;
 }
 
 .description {
   font-family: var(--font-mono);
-  color: black;
+  color: ghostwhite;
   padding: 1rem;
 }
 
