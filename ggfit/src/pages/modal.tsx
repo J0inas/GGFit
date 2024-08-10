@@ -21,7 +21,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
         backgroundColor: theme.palette.grey[700],
     },
     [`& .${linearProgressClasses.bar}`]: {
-        borderRadius: 5,
+        borderRadius: 4,
         backgroundColor: theme.palette.grey[400],
     },
 }));
@@ -37,9 +37,10 @@ const style = {
     height: 700,
     bgcolor: "#343434",
     opacity: '100%',
-    border: '1px solid #000',
+    border: '0px solid #000',
     boxShadow: 24,
-    p: 4
+    borderRadius: 2,
+    p: 6                // padding
 };
 
 
@@ -61,6 +62,7 @@ export default function BasicModal() {
                 <Fade in={open}>
                     <Box sx={style}>
                         <BorderLinearProgress variant="determinate" value={50} />
+                        <br/> <br/>
                         <TextMobileStepper></TextMobileStepper>
                     </Box>
                 </Fade>
