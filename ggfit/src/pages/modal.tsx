@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import BoxPageNo from "@/pages/PageNo/box_page_no";
 import BoxProgressBar from "@/pages/ProgressBar/box_progress_bar";
+import BoxNoProgressBar from "@/pages/PageNo/box_page_no";
 
 
 // Style der Modal Box:
@@ -32,7 +33,7 @@ export default function BasicModal() {
 
     return (
         <div>
-            <Button variant="contained" onClick={handleOpen}>Registrieren</Button>
+            <Button variant="contained" onClick={handleOpen}>Registrierung</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -41,7 +42,7 @@ export default function BasicModal() {
             >
                 <Fade in={open}>
                     <Box sx={style}>
-                        <BoxProgressBar/>
+                        <BoxNoProgressBar/>
                     </Box>
                 </Fade>
             </Modal>
