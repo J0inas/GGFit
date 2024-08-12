@@ -3,7 +3,9 @@ import { styled } from '@mui/material/styles'
 import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import Stack from "@mui/system/Stack"
-import Button from '@mui/material/Button';
+import Button from '@mui/material/Button'
+import Slide from "@mui/material/Slide"
+import Fade from "@mui/material/Fade"
 
 import LinearProgress, {linearProgressClasses } from "@mui/material/LinearProgress";
 import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
@@ -77,27 +79,6 @@ const footer_theme = createTheme({
     },
 });
 
-// Aufbau der Footer Box:
-function BoxFooter() {
-
-    return (
-        <Box sx={style_box_footer}>
-            <ThemeProvider theme={footer_theme}>
-                <Grid
-                    container
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                >
-                    <Button variant="outlined" color="white"><ArrowBackIosNewIcon/></Button>
-                    <Button variant="outlined" color="white"><ArrowForwardIosIcon/></Button>
-                </Grid>
-            </ThemeProvider>
-
-        </Box>
-    )
-}
-
 
 const Item = styled('div')(({ theme }) => ({
     backgroundColor: '#D9D9D9',
@@ -111,11 +92,56 @@ const Item = styled('div')(({ theme }) => ({
 export default function BoxProgressBar() {
     const theme = useTheme();
 
+    // ProgressBar:
+    const [progress, setProgress] = React.useState<number>(40);
+    const changeProgress = (delta: number) => {
+        setProgress((prevProgress) => Math.max(Math.min(prevProgress + delta, 100), 0));
+    };
+
+    // Sliding der Anmeldung:
+    const [boxNumber, setBoxNumber] = React.useState(0);
+    const increaseBoxNumber = () => {
+        setBoxNumber((prevBoxNumber) => Math.min(prevBoxNumber + 1, 2));
+    }
+    const decreaseBoxNumber = () => {
+        setBoxNumber((prevBoxNumber) => Math.max(prevBoxNumber - 1, 0));
+    }
+
+
+    // Aufbau des Formulars:
     return (
         <Stack spacing={3}>
-            <Box sx={{height: 10}}><BorderLinearProgress variant="determinate" value={50}/></Box>
-            <BoxData></BoxData>
-            <BoxFooter></BoxFooter>
+            <Box sx={{height: 10}}><BorderLinearProgress variant="determinate" value={progress}/></Box>
+
+            <Box sx={{ width: 200, height: 200, overflow: 'hidden' }}>
+                <Fade in={boxNumber === 0} mountOnEnter unmountOnExit>
+                    <Box sx={{ width: 200, height: 200, bgcolor: 'blue' }} />
+                </Fade>
+                <Fade in={boxNumber === 1} mountOnEnter unmountOnExit>
+                    <Box sx={{ width: 200, height: 200, bgcolor: 'green' }} />
+                </Fade>
+                <Fade in={boxNumber === 2} mountOnEnter unmountOnExit>
+                    <Box sx={{ width: 200, height: 200, bgcolor: 'gray' }} />
+                </Fade>
+            </Box>
+
+            <Box sx={style_box_footer}>
+                <ThemeProvider theme={footer_theme}>
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                    >
+                        <Button variant="outlined" color="white" onClick={() => decreaseBoxNumber()}>
+                            <ArrowBackIosNewIcon/>
+                        </Button>
+                        <Button variant="outlined" color="white" onClick={() => increaseBoxNumber()}>
+                            <ArrowForwardIosIcon/>
+                        </Button>
+                    </Grid>
+                </ThemeProvider>
+            </Box>
         </Stack>
     );
 }

@@ -42,7 +42,7 @@ export default function BasicModal() {
             >
                 <Fade in={open}>
                     <Box sx={style}>
-                        <BoxNoProgressBar/>
+                        <BoxProgressBar/>
                     </Box>
                 </Fade>
             </Modal>
