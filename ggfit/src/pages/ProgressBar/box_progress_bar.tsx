@@ -10,6 +10,11 @@ import Button from '@mui/material/Button'
 import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
+import Slider from '@mui/material/Slider'
 
 import Fade from "@mui/material/Fade"
 
@@ -111,6 +116,62 @@ const sx_checkbox = {
     },
 }
 
+const sx_formlabel = {
+    color: '#909090',           // Standardfarbe des Labels
+    '&.Mui-focused': {
+        color: '#909090',         // Farbe des Labels im Fokus
+    },
+}
+
+const sx_radiobutton = {
+    color: '#909090',           // Farbe des Randes im nicht geklickten Zustand
+        '&.Mui-checked': {
+        color: '#909090',           // Farbe des Symbols im geklickten Zustand
+    },
+}
+
+const sx_slider = {
+    color: '#d0d0d0', // Farbe des Sliders (Track und Thumb)
+    '& .MuiSlider-markLabel': {
+        color: '#d0d0d0',             // Farbe der Labels unterhalb des Sliders
+    },
+    '& .MuiSlider-thumb': {
+        borderRadius: '50%',        // Optional: Anpassen der Thumb-Form
+        '&:hover, &.Mui-active': {
+            boxShadow: '0px 0px 0px 8px rgba(255, 255, 255, 0.24)', // Grüner Schatten beim Ziehen
+        },
+    },
+    '& .MuiSlider-rail': {
+        color: 'white',             // Farbe der Schiene (Rail)
+    },
+}
+
+
+
+// Werte des Sliders:
+const marks_slider = [
+    {
+        value: 1,
+        label: 'Keine'
+    },
+    {
+        value: 2,
+        label: 'Wenig'
+    },
+    {
+        value: 3,
+        label: 'Etwas'
+    },
+    {
+        value: 4,
+        label: 'Viel'
+    },
+    {
+        value: 5,
+        label: 'Sehr viel'
+    }
+]
+
 
 // Aufbau der Box:
 export default function BoxProgressBar() {
@@ -140,6 +201,11 @@ export default function BoxProgressBar() {
     const [lastMail, setLastMail] = React.useState('');
     const [firstPassword, setFirstPassword] = React.useState('');
     const [lastPassword, setLastPassword] = React.useState('');
+    const [checkboxStateAge, setCheckboxStateAge] = React.useState(false);
+    const [checkboxStateTos, setCheckboxStateTos] = React.useState(false);
+    const [checkedGender, setCheckedGender] = React.useState('no-gender');
+    const [sliderValue, setSliderValue] = React.useState(1);
+
     const handleFirstNameChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setFirstName(event.target.value);
     }
@@ -158,6 +224,18 @@ export default function BoxProgressBar() {
     const handleLastPasswordChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setLastPassword(event.target.value);
     }
+    const handleCheckboxStateAgeChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setCheckboxStateAge(event.target.checked);
+    }
+    const handleCheckboxStateTosChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setCheckboxStateTos(event.target.checked);
+    }
+    const handleCheckedGenderChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setCheckedGender(event.target.value);
+    }
+    const handleSliderValueChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setSliderValue(event.target.value)
+    }
 
 
     // Aufbau des Formulars:
@@ -174,7 +252,7 @@ export default function BoxProgressBar() {
                             <Divider textAlign="left"
                                      sx={{"&::before, &::after": { borderColor: "#d0d0d0" }}}
                             >
-                                <Typography fontFamily="Arial" fontSize={24}>Account Daten</Typography>
+                                <Typography fontFamily="Arial" fontSize={24}>Account-Informationen</Typography>
                             </Divider>
                             <Stack spacing={3} direction="row">
                                 <TextField id="first-name"
@@ -237,7 +315,7 @@ export default function BoxProgressBar() {
                             <Divider textAlign="left"
                                      sx={{"&::before, &::after": { borderColor: "#d0d0d0" }}}
                             >
-                                <Typography fontFamily="Arial" fontSize={24}>Account Daten</Typography>
+                                <Typography fontFamily="Arial" fontSize={24}>Account-Informationen</Typography>
                             </Divider>
                             <TextField id="password-first"
                                        label="Passwort"
@@ -265,14 +343,22 @@ export default function BoxProgressBar() {
                             />
                             <Box sx={{width: "100%", height: 10}} />
                             <FormGroup>
-                                <FormControlLabel control={<Checkbox sx={sx_checkbox}/>}
+                                <FormControlLabel control={
+                                    <Checkbox sx={sx_checkbox}
+                                              checked={checkboxStateAge}
+                                              onChange={handleCheckboxStateAgeChange}/>
+                                }
                                                   label={
                                                       <Typography fontFamily="Arial" fontSize={18}>
                                                           Ich bin mindestens 18 Jahre alt.
                                                       </Typography>
                                                   }
                                 />
-                                <FormControlLabel control={<Checkbox sx={sx_checkbox}/>}
+                                <FormControlLabel control={
+                                    <Checkbox sx={sx_checkbox}
+                                              checked={checkboxStateTos}
+                                              onChange={handleCheckboxStateTosChange}/>
+                                }
                                                   label={
                                                       <Typography fontFamily="Arial" fontSize={18}>
                                                           Ich habe die AGB und Datenschutzrichtlinien gelesen und stimmen diesen zu.
@@ -286,8 +372,58 @@ export default function BoxProgressBar() {
 
 
                 <Fade in={boxNumber === 2} mountOnEnter unmountOnExit>
-                    <Box sx={{ width: "100%", height: "100%", bgcolor: 'gray' }} />
+                    <Box sx={{ width: "100%", height: "100%"}}>
+                        <Stack spacing={4} direction="column">
+                            <Box sx={{width: "100%", height: 20}}/>
+                            <Divider textAlign="left"
+                                     sx={{"&::before, &::after": { borderColor: "#d0d0d0" }}}
+                            >
+                                <Typography fontFamily="Arial" fontSize={24}>Persönliche Angaben</Typography>
+                            </Divider>
+                            <Box sx={{width: "100%", height: 15}}/>
+                            <Box sx={{width: "100%", height: "100%", px: 13}}>
+                                <Stack spacing={3} direction="row">
+                                    <FormControl>
+                                        <FormLabel id="gender-radio-button-group-label" sx={sx_formlabel}>
+                                        </FormLabel>
+                                        <RadioGroup aria-labelledby="gender-radio-button-group"
+                                                    name="gender-radio-button-group"
+                                                    value={checkedGender}
+                                                    onChange={handleCheckedGenderChange}
+                                        >
+                                            <FormControlLabel value="female" control={<Radio sx={sx_radiobutton}/>} label="Weiblich" />
+                                            <FormControlLabel value="male" control={<Radio sx={sx_radiobutton}/>} label="Männlich" />
+                                            <FormControlLabel value="non-binary" control={<Radio sx={sx_radiobutton}/>} label="Nichtbinär" />
+                                            <FormControlLabel value="no-gender" control={<Radio sx={sx_radiobutton}/>} label="Keine Angabe" />
+                                        </RadioGroup>
+                                    </FormControl>
+                                    <Box height="100%" width={100}/>
+                                    <Box height="100%" width={500}>
+                                        <Stack spacing={2} direction="column">
+                                            <Box/>
+                                            <Typography align="center" fontFamily="Arial" fontSize={20}>
+                                                Vorerfahrung:
+                                            </Typography>
+                                            <Slider aria-label="Label"
+                                                    value={sliderValue}
+                                                    onChange={handleSliderValueChange}
+                                                    shiftStep={1}
+                                                    step={1}
+                                                    marks={marks_slider}
+                                                    min={1}
+                                                    max={5}
+                                                    sx={sx_slider}
+                                            />
+                                        </Stack>
+                                    </Box>
+                                </Stack>
+                            </Box>
+                        </Stack>
+                    </Box>
                 </Fade>
+
+
+
             </Box>
 
             <Box sx={sx_footer}>
