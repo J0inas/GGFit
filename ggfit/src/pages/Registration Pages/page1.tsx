@@ -1,10 +1,9 @@
-
 import React from "react";
 import Stack from "@mui/system/Stack";
 import {TextField} from "@mui/material";
 
 // 1. Page zur Registrierung
-function Page1(): React.JSX.Element{
+export default function Page1(): React.JSX.Element{
     return (
         <div>
             <Stack>

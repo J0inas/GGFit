@@ -8,10 +8,8 @@ import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import {TextField} from "@mui/material";
 import {useState} from "react";
-import {Pages} from "@mui/icons-material";
-// import {} from "./reg_pages/";
+import Page1 from '@/pages/Registration Pages/page1';
 
 // Styling der Main Box:
 const style_box_data = {
@@ -21,13 +19,11 @@ const style_box_data = {
 }
 
 
-
 // Aufbau der Main Box:
 function BoxData() {
     const theme = useTheme();
     // Multi-Page-Logic:
-    const [page, setPage] = useState(1);
-
+    const [page, setPage] = useState(0);
 
     return (
         <>
@@ -37,7 +33,7 @@ function BoxData() {
                 </h2>
                 <div>
                     {
-                        page === 1 ? <Page1/> : page === 2 ?  <Page2/> : <Page3/>
+                        page === 0 ? <Page1/> : page === 1 ?  <Page2/> : <Page3/>
                     }
                 </div>
 
@@ -57,7 +53,7 @@ function BoxData() {
                         <div>
                             {
                                 // Back - Button - Bedingung
-                                page > 1 && (
+                                page > 0 && (
                                     <Button variant="outlined" color="white"
                                             onClick={()=>{
                                                 const nextPage = page - 1;
@@ -69,7 +65,7 @@ function BoxData() {
                         </div>
                             {
                                 // Forward - Button - Bedingung
-                                page < 3 && (
+                                page < 2 && (
                                     <Button variant="outlined" color="white"
                                             onClick={()=>{
                                                 const nextPage = page + 1;
@@ -87,57 +83,7 @@ function BoxData() {
 }
 
 
-// 1. Page zur Registrierung
-function Page1(): React.JSX.Element{
-    return (
-        <div>
-            <Stack>
-                <Stack padding={2}>
-                    <h3>
-                        Wie heißt du?
-                    </h3>
-                    <Stack direction="row" gap={3}>
-                        <TextField
-                            required
-                            id="vorname"
-                            label="Vorname"
-                            margin={"normal"}
-                        />
-                        <TextField
-                            required
-                            id="vorname"
-                            label="Nachname"
-                            margin={"normal"}
-                        />
-                    </Stack>
 
-                </Stack>
-                <Stack padding={2}>
-                    <h3>
-                        Wie lautet deine E-Mailadresse?
-                    </h3>
-                    <TextField
-                        required
-                        id="mail"
-                        label="E-Mail"
-                        margin={"normal"}
-                    />
-                </Stack>
-                <Stack  padding={2}>
-                    <h4>
-                        Bestätigung der Mailadresse:
-                    </h4>
-                    <TextField
-                        required
-                        id="mail-bestätigung"
-                        label="E-Mail"
-                        margin={"normal"}
-                    />
-                </Stack>
-            </Stack>
-        </div>
-    )
-}
 
 // 2. Page
 function Page2(): React.JSX.Element{
