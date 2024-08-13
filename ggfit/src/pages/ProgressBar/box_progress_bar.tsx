@@ -7,13 +7,13 @@ import Stack from "@mui/system/Stack"
 import Divider from "@mui/material/Divider"
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-import Radio from '@mui/material/Radio'
-import RadioGroup from '@mui/material/RadioGroup'
-import FormControl from '@mui/material/FormControl'
-import FormLabel from '@mui/material/FormLabel'
 import Slider from '@mui/material/Slider'
 
 import Fade from "@mui/material/Fade"
@@ -24,7 +24,6 @@ import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Typography from "@mui/material/Typography";
-import {CheckBox} from "@mui/icons-material";
 
 
 // Styling der Progress Bar:
@@ -123,6 +122,31 @@ const sx_formlabel = {
     },
 }
 
+const sx_select = {
+    '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#707070',
+        borderWidth: "1px",
+    },
+    "&.Mui-focused": {
+        "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#909090",  // Clicked Farbe der Border
+            borderWidth: "1px",
+        },
+    },
+    "&:hover:not(.Mui-focused)": {
+        "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#909090",  // Hovered Farbe der Border
+        },
+    },
+    '& .MuiSelect-select': {
+        color: 'white', // Schriftfarbe des ausgewählten Wertes
+    },
+
+    '& .MuiSvgIcon-root': {
+        color: 'white', // Farbe des Pfeils
+    },
+}
+
 const sx_radiobutton = {
     color: '#909090',           // Farbe des Randes im nicht geklickten Zustand
         '&.Mui-checked': {
@@ -152,23 +176,23 @@ const sx_slider = {
 const marks_slider = [
     {
         value: 1,
-        label: 'Keine'
+        label: 'keine'
     },
     {
         value: 2,
-        label: 'Wenig'
+        label: 'wenig'
     },
     {
         value: 3,
-        label: 'Etwas'
+        label: 'etwas'
     },
     {
         value: 4,
-        label: 'Viel'
+        label: 'viel'
     },
     {
         value: 5,
-        label: 'Sehr viel'
+        label: 'sehr viel'
     }
 ]
 
@@ -187,7 +211,7 @@ export default function BoxProgressBar() {
     // Sliding der Anmeldung:
     const [boxNumber, setBoxNumber] = React.useState(0);
     const increaseBoxNumber = () => {
-        setBoxNumber((prevBoxNumber) => Math.min(prevBoxNumber + 1, 2));
+        setBoxNumber((prevBoxNumber) => Math.min(prevBoxNumber + 1, 5));
     }
     const decreaseBoxNumber = () => {
         setBoxNumber((prevBoxNumber) => Math.max(prevBoxNumber - 1, 0));
@@ -199,12 +223,29 @@ export default function BoxProgressBar() {
     const [lastName, setLastName] = React.useState('');
     const [firstMail, setFirstMail] = React.useState('');
     const [lastMail, setLastMail] = React.useState('');
+
     const [firstPassword, setFirstPassword] = React.useState('');
     const [lastPassword, setLastPassword] = React.useState('');
     const [checkboxStateAge, setCheckboxStateAge] = React.useState(false);
     const [checkboxStateTos, setCheckboxStateTos] = React.useState(false);
-    const [checkedGender, setCheckedGender] = React.useState('no-gender');
+
+    const [gender, setGender] = React.useState('');
+    const [age, setAge] = React.useState('');
+    const [height, setHeight] = React.useState('');
+    const [weight, setWeight] = React.useState('');
+
     const [sliderValue, setSliderValue] = React.useState(1);
+
+    const [targetSteps, setTargetSteps] = React.useState('');
+    const [checkboxTargetSteps, setCheckboxTargetSteps] = React.useState(false);
+    const [targetWeight, setTargetWeight] = React.useState('');
+    const [checkboxTargetWeight, setCheckboxTargetWeight] = React.useState(false);
+    const [targetWater, setTargetWater] = React.useState('');
+    const [checkboxTargetWater, setCheckboxTargetWater] = React.useState(false);
+
+    const [username, setUsername] = React.useState('');
+    const [phoneNumber, setPhoneNumber] = React.useState('');
+    const [checkboxState2FA, setCheckboxState2FA] = React.useState(false);
 
     const handleFirstNameChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setFirstName(event.target.value);
@@ -218,6 +259,7 @@ export default function BoxProgressBar() {
     const handleLastMailChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setLastMail(event.target.value);
     }
+
     const handleFirstPasswordChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setFirstPassword(event.target.value);
     }
@@ -230,11 +272,51 @@ export default function BoxProgressBar() {
     const handleCheckboxStateTosChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setCheckboxStateTos(event.target.checked);
     }
-    const handleCheckedGenderChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-        setCheckedGender(event.target.value);
+
+    const handleGenderChange = (event: SelectChangeEvent) => {
+        setGender(event.target.value);
     }
+    const handleAgeChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setAge(event.target.value);
+    }
+    const handleHeightChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setHeight(event.target.value);
+    }
+    const handleWeightChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setWeight(event.target.value);
+    }
+
     const handleSliderValueChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setSliderValue(event.target.value)
+    }
+
+    const handleTargetStepsChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setTargetSteps(event.target.value);
+    }
+    const handleCheckboxTargetStepsChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setCheckboxTargetSteps(event.target.checked)
+    }
+    const handleTargetWeightChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setTargetWeight(event.target.value);
+    }
+    const handleCheckboxTargetWeightChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setCheckboxTargetWeight(event.target.checked)
+    }
+    const handleTargetWaterChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setTargetWater(event.target.value);
+    }
+    const handleCheckboxTargetWaterChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setCheckboxTargetWater(event.target.checked)
+    }
+
+    const handleUsernameChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setUsername(event.target.value);
+    }
+    const handlePhoneNumberChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setPhoneNumber(event.target.value);
+    }
+    const handleCheckboxState2FAChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setCheckboxState2FA(event.target.checked);
     }
 
 
@@ -378,25 +460,227 @@ export default function BoxProgressBar() {
                             <Divider textAlign="left"
                                      sx={{"&::before, &::after": { borderColor: "#d0d0d0" }}}
                             >
-                                <Typography fontFamily="Arial" fontSize={24}>Persönliche Angaben</Typography>
+                                <Typography fontFamily="Arial" fontSize={24}>Persönliche Angaben (Optional)</Typography>
                             </Divider>
+                            <Stack spacing={3} direction="column">
+                                <FormControl fullWidth={true}>
+                                    <InputLabel id="select-gender-label"
+                                                sx={{
+                                                    color: 'white',
+                                                    '&.Mui-focused': {
+                                                        color: 'white',
+                                                    },
+                                                }}
+                                    >
+                                        Geschlecht
+                                    </InputLabel>
+                                    <Select
+                                        labelId="select-gender-label"
+                                        id="gender-select"
+                                        value={gender}
+                                        label="Geschlecht"
+                                        onChange={handleGenderChange}
+                                        sx={sx_select}
+                                        MenuProps={{
+                                            PaperProps: {
+                                                sx: {
+                                                    bgcolor: '#404040',
+                                                    '& .MuiMenuItem-root': {
+                                                        color: 'white',
+                                                    },
+                                                },
+                                            },
+                                        }}
+                                    >
+                                        <MenuItem value={1}>Weiblich</MenuItem>
+                                        <MenuItem value={2}>Männlich</MenuItem>
+                                        <MenuItem value={3}>Nichtbinär</MenuItem>
+                                        <MenuItem value={4}>Keine Angabe</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                <TextField id="age"
+                                           label="Alter"
+                                           variant="outlined"
+                                           fullWidth={true}
+                                           value={age}
+                                           onChange={handleAgeChange}
+                                           InputProps={{style: { color: 'white' }}}
+                                           InputLabelProps={{style: { color: 'white' }}}
+                                           sx={sx_textbox}
+                                />
+                                <TextField id="height"
+                                           label="Größe (in cm)"
+                                           variant="outlined"
+                                           fullWidth={true}
+                                           value={height}
+                                           onChange={handleHeightChange}
+                                           InputProps={{style: { color: 'white' }}}
+                                           InputLabelProps={{style: { color: 'white' }}}
+                                           sx={sx_textbox}
+                                />
+                                <TextField id="weight"
+                                           label="Gewicht (in kg)"
+                                           variant="outlined"
+                                           fullWidth={true}
+                                           value={weight}
+                                           onChange={handleWeightChange}
+                                           InputProps={{style: { color: 'white' }}}
+                                           InputLabelProps={{style: { color: 'white' }}}
+                                           sx={sx_textbox}
+                                />
+                            </Stack>
+                        </Stack>
+                    </Box>
+                </Fade>
+
+
+                <Fade in={boxNumber === 3} mountOnEnter unmountOnExit>
+                    <Box sx={{ width: "100%", height: "100%"}}>
+                        <Stack spacing={4} direction="column">
+                            <Box sx={{width: "100%", height: 20}}/>
+                            <Divider textAlign="left"
+                                     sx={{"&::before, &::after": { borderColor: "#d0d0d0" }}}
+                            >
+                                <Typography fontFamily="Arial" fontSize={24}>Vorerfahrung (Optional)</Typography>
+                            </Divider>
+                            <Box sx={{width: "100%", height: 120}}/>
+                            <Box sx={{width: "100%", height: "100%", px: 13}}>
+                                <Slider aria-label="Label"
+                                        value={sliderValue}
+                                        onChange={handleSliderValueChange}
+                                        shiftStep={1}
+                                        step={1}
+                                        marks={marks_slider}
+                                        min={1}
+                                        max={5}
+                                        sx={sx_slider}
+                                />
+                            </Box>
+                        </Stack>
+                    </Box>
+                </Fade>
+
+
+                <Fade in={boxNumber === 4} mountOnEnter unmountOnExit>
+                    <Box sx={{ width: "100%", height: "100%"}}>
+                        <Stack spacing={4} direction="column">
+                            <Box sx={{width: "100%", height: 20}}/>
+                            <Divider textAlign="left"
+                                     sx={{"&::before, &::after": { borderColor: "#d0d0d0" }}}
+                            >
+                                <Typography fontFamily="Arial" fontSize={24}>Fitness-Ziele (Optional)</Typography>
+                            </Divider>
+                            <Box sx={{width: "100%"}}>
+                                <TextField id="target-steps"
+                                           label="Ziel: Anz. Schritte"
+                                           variant="outlined"
+                                           fullWidth={true}
+                                           disabled={checkboxTargetSteps}
+                                           value={targetSteps}
+                                           onChange={handleTargetStepsChange}
+                                           InputProps={{
+                                               style: { color: 'white' },
+                                               sx: {
+                                                   "& .MuiInputBase-input.Mui-disabled": {
+                                                       WebkitTextFillColor: "white",
+                                                       color: "white"
+                                                   }
+                                               }
+                                           }}
+                                           InputLabelProps={{style: { color: 'white' }}}
+                                           sx={sx_textbox}
+                                />
+                                <Box sx={{width: "100%", height: 1}}/>
+                                <FormGroup>
+                                    <FormControlLabel control={
+                                        <Checkbox sx={sx_checkbox}
+                                                  checked={checkboxTargetSteps}
+                                                  onChange={handleCheckboxTargetStepsChange}/>
+                                    }
+                                                      label={
+                                                          <Typography fontFamily="Arial" fontSize={18}>
+                                                              Ich habe kein Schritt-Ziel.
+                                                          </Typography>
+                                                      }
+                                    />
+                                </FormGroup>
+                            </Box>
+                            <Box sx={{width: "100%"}}>
+                                <TextField id="target-weight"
+                                           label="Ziel: Gewicht (in kg)"
+                                           variant="outlined"
+                                           fullWidth={true}
+                                           disabled={checkboxTargetWeight}
+                                           value={targetWeight}
+                                           onChange={handleTargetWeightChange}
+                                           InputProps={{
+                                               style: { color: 'white' },
+                                               sx: {
+                                                   "& .MuiInputBase-input.Mui-disabled": {
+                                                       WebkitTextFillColor: "white",
+                                                       color: "white"
+                                                   }
+                                               }
+                                           }}
+                                           InputLabelProps={{style: { color: 'white' }}}
+                                           sx={sx_textbox}
+                                />
+                                <Box sx={{width: "100%", height: 1}}/>
+                                <FormGroup>
+                                    <FormControlLabel control={
+                                        <Checkbox sx={sx_checkbox}
+                                                  checked={checkboxTargetWeight}
+                                                  onChange={handleCheckboxTargetWeightChange}/>
+                                    }
+                                                      label={
+                                                          <Typography fontFamily="Arial" fontSize={18}>
+                                                              Ich habe kein Gewichts-Ziel.
+                                                          </Typography>
+                                                      }
+                                    />
+                                </FormGroup>
+                            </Box>
+                            <Box sx={{width: "100%"}}>
+                                <TextField id="target-water"
+                                           label="Ziel: Wasser pro Tag (in ml)"
+                                           variant="outlined"
+                                           fullWidth={true}
+                                           disabled={checkboxTargetWater}
+                                           value={targetWater}
+                                           onChange={handleTargetWaterChange}
+                                           InputProps={{
+                                               style: { color: 'white' },
+                                               sx: {
+                                                   "& .MuiInputBase-input.Mui-disabled": {
+                                                       WebkitTextFillColor: "white",
+                                                       color: "white"
+                                                   }
+                                               }
+                                           }}
+                                           InputLabelProps={{style: { color: 'white' }}}
+                                           sx={sx_textbox}
+                                />
+                                <Box sx={{width: "100%", height: 1}}/>
+                                <FormGroup>
+                                    <FormControlLabel control={
+                                        <Checkbox sx={sx_checkbox}
+                                                  checked={checkboxTargetWater}
+                                                  onChange={handleCheckboxTargetWaterChange}/>
+                                    }
+                                                      label={
+                                                          <Typography fontFamily="Arial" fontSize={18}>
+                                                              Ich habe kein Wasser-Ziel.
+                                                          </Typography>
+                                                      }
+                                    />
+                                </FormGroup>
+                            </Box>
+
+
                             <Box sx={{width: "100%", height: 15}}/>
                             <Box sx={{width: "100%", height: "100%", px: 13}}>
                                 <Stack spacing={3} direction="row">
-                                    <FormControl>
-                                        <FormLabel id="gender-radio-button-group-label" sx={sx_formlabel}>
-                                        </FormLabel>
-                                        <RadioGroup aria-labelledby="gender-radio-button-group"
-                                                    name="gender-radio-button-group"
-                                                    value={checkedGender}
-                                                    onChange={handleCheckedGenderChange}
-                                        >
-                                            <FormControlLabel value="female" control={<Radio sx={sx_radiobutton}/>} label="Weiblich" />
-                                            <FormControlLabel value="male" control={<Radio sx={sx_radiobutton}/>} label="Männlich" />
-                                            <FormControlLabel value="non-binary" control={<Radio sx={sx_radiobutton}/>} label="Nichtbinär" />
-                                            <FormControlLabel value="no-gender" control={<Radio sx={sx_radiobutton}/>} label="Keine Angabe" />
-                                        </RadioGroup>
-                                    </FormControl>
+
                                     <Box height="100%" width={100}/>
                                     <Box height="100%" width={500}>
                                         <Stack spacing={2} direction="column">
@@ -423,6 +707,56 @@ export default function BoxProgressBar() {
                 </Fade>
 
 
+                <Fade in={boxNumber === 5} mountOnEnter unmountOnExit>
+                    <Box sx={{ width: "100%", height: "100%"}}>
+                        <Stack spacing={4} direction="column">
+                            <Box sx={{width: "100%", height: 20}}/>
+                            <Divider textAlign="left"
+                                     sx={{"&::before, &::after": { borderColor: "#d0d0d0" }}}
+                            >
+                                <Typography fontFamily="Arial" fontSize={24}>Account-Sicherheit (Optional)</Typography>
+                            </Divider>
+                            <TextField id="username"
+                                       label="Nutzername"
+                                       variant="outlined"
+                                       fullWidth={true}
+                                       value={username}
+                                       onChange={handleUsernameChange}
+                                       InputProps={{style: { color: 'white' }}}
+                                       InputLabelProps={{style: { color: 'white' }}}
+                                       sx={sx_textbox}
+                            />
+                            <Box sx={{width: "100%", height: 10}} />
+                            <Box sx={{width: "100%", height: 10}}>
+                                <TextField id="phone-number"
+                                           label="Telefonnummer"
+                                           variant="outlined"
+                                           fullWidth={true}
+                                           value={phoneNumber}
+                                           onChange={handlePhoneNumberChange}
+                                           InputProps={{style: { color: 'white' }}}
+                                           InputLabelProps={{style: { color: 'white' }}}
+                                           sx={sx_textbox}
+                                />
+                                <Box sx={{width: "100%", height: 1}}/>
+                                <FormGroup>
+                                    <FormControlLabel control={
+                                        <Checkbox sx={sx_checkbox}
+                                                  checked={checkboxState2FA}
+                                                  onChange={handleCheckboxState2FAChange}/>
+                                    }
+                                                      label={
+                                                          <Typography fontFamily="Arial" fontSize={18}>
+                                                              Ich möchte 2-Faktor-Authentifierung über SMS aktivieren.
+                                                          </Typography>
+                                                      }
+                                    />
+                                </FormGroup>
+                            </Box>
+                        </Stack>
+                    </Box>
+                </Fade>
+
 
             </Box>
 
@@ -446,3 +780,21 @@ export default function BoxProgressBar() {
         </Stack>
     );
 }
+
+
+/* Alter Code für später:
+<FormControl>
+                                        <FormLabel id="gender-radio-button-group-label" sx={sx_formlabel}>
+                                        </FormLabel>
+                                        <RadioGroup aria-labelledby="gender-radio-button-group"
+                                                    name="gender-radio-button-group"
+                                                    value={checkedGender}
+                                                    onChange={handleCheckedGenderChange}
+                                        >
+                                            <FormControlLabel value="female" control={<Radio sx={sx_radiobutton}/>} label="Weiblich" />
+                                            <FormControlLabel value="male" control={<Radio sx={sx_radiobutton}/>} label="Männlich" />
+                                            <FormControlLabel value="non-binary" control={<Radio sx={sx_radiobutton}/>} label="Nichtbinär" />
+                                            <FormControlLabel value="no-gender" control={<Radio sx={sx_radiobutton}/>} label="Keine Angabe" />
+                                        </RadioGroup>
+                                    </FormControl>
+ */

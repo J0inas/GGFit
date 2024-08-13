@@ -21,7 +21,8 @@ const style = {
     border: '0px solid #000',
     boxShadow: 24,
     borderRadius: 2,
-    p: 6                // padding
+    p: 6,                // padding
+    px: 8,
 };
 
 
@@ -42,7 +43,7 @@ export default function BasicModal() {
             >
                 <Fade in={open}>
                     <Box sx={style}>
-                        <BoxNoProgressBar/>
+                        <BoxProgressBar/>
                     </Box>
                 </Fade>
             </Modal>
