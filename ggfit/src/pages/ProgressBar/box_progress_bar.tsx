@@ -1,13 +1,17 @@
 import * as React from 'react'
 import { styled } from '@mui/material/styles'
+
 import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import Stack from "@mui/system/Stack"
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import Fade from "@mui/material/Fade"
 import Divider from "@mui/material/Divider"
-import Chip from "@mui/material/Chip"
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import FormGroup from '@mui/material/FormGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
+
+import Fade from "@mui/material/Fade"
 
 import LinearProgress, {linearProgressClasses } from "@mui/material/LinearProgress";
 import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
@@ -15,6 +19,7 @@ import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Typography from "@mui/material/Typography";
+import {CheckBox} from "@mui/icons-material";
 
 
 // Styling der Progress Bar:
@@ -31,21 +36,13 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 }));
 
 
-// Styling der Main Box:
-const style_box_data = {
-    width: "100%",
-    height: 520,
-    bgcolor: "#404040"
-}
-
 
 // Styling der Footer Box:
-const style_box_footer = {
+const sx_footer = {
     width: "100%",
     height: 40,
 }
 
-// Augment the palette to include a white color
 declare module '@mui/material/styles' {
     interface Palette {
         white: Palette['primary'];
@@ -56,7 +53,6 @@ declare module '@mui/material/styles' {
     }
 }
 
-// Update the Button's color options to include an ochre option
 declare module '@mui/material/Button' {
     interface ButtonPropsColorOverrides {
         white: true;
@@ -72,6 +68,8 @@ const footer_theme = createTheme({
 });
 
 
+
+// Styling der Textboxen, Checkboxen & Divider:
 const sx_textbox = {
     // Root class for the input field
     "& .MuiOutlinedInput-root": {
@@ -103,6 +101,16 @@ const sx_textbox = {
     },
 }
 
+const sx_checkbox = {
+    color: '#707070',             // Farbe des Randes und des Symbols, wenn nicht angekreuzt
+        '&.Mui-checked': {
+        color: 'white',           // Farbe des Symbols, wenn angekreuzt
+    },
+    '& .MuiSvgIcon-root': {
+        //fontSize: 28,         // Größe der Checkbox (optional)
+    },
+}
+
 
 // Aufbau der Box:
 export default function BoxProgressBar() {
@@ -130,6 +138,8 @@ export default function BoxProgressBar() {
     const [lastName, setLastName] = React.useState('');
     const [firstMail, setFirstMail] = React.useState('');
     const [lastMail, setLastMail] = React.useState('');
+    const [firstPassword, setFirstPassword] = React.useState('');
+    const [lastPassword, setLastPassword] = React.useState('');
     const handleFirstNameChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setFirstName(event.target.value);
     }
@@ -142,6 +152,12 @@ export default function BoxProgressBar() {
     const handleLastMailChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setLastMail(event.target.value);
     }
+    const handleFirstPasswordChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setFirstPassword(event.target.value);
+    }
+    const handleLastPasswordChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+        setLastPassword(event.target.value);
+    }
 
 
     // Aufbau des Formulars:
@@ -151,7 +167,6 @@ export default function BoxProgressBar() {
 
             <Box sx={{ width: "100%", height: 520, overflow: 'hidden' }}>
 
-
                 <Fade in={boxNumber === 0} mountOnEnter unmountOnExit>
                     <Box sx={{width: "100%", height: "100%"}}>
                         <Stack spacing={4} direction="column">
@@ -159,7 +174,7 @@ export default function BoxProgressBar() {
                             <Divider textAlign="left"
                                      sx={{"&::before, &::after": { borderColor: "#d0d0d0" }}}
                             >
-                                <Typography fontFamily="Arial" fontSize={20}>Persönliche Daten</Typography>
+                                <Typography fontFamily="Arial" fontSize={24}>Account Daten</Typography>
                             </Divider>
                             <Stack spacing={3} direction="row">
                                 <TextField id="first-name"
@@ -213,15 +228,69 @@ export default function BoxProgressBar() {
 
 
                 </Fade>
+
+
                 <Fade in={boxNumber === 1} mountOnEnter unmountOnExit>
-                    <Box sx={{ width: "100%", height: "100%", bgcolor: 'green' }} />
+                    <Box sx={{ width: "100%", height: "100%"}}>
+                        <Stack spacing={4} direction="column">
+                            <Box sx={{width: "100%", height: 20}}/>
+                            <Divider textAlign="left"
+                                     sx={{"&::before, &::after": { borderColor: "#d0d0d0" }}}
+                            >
+                                <Typography fontFamily="Arial" fontSize={24}>Account Daten</Typography>
+                            </Divider>
+                            <TextField id="password-first"
+                                       label="Passwort"
+                                       variant="outlined"
+                                       type="password"
+                                       fullWidth={true}
+                                       required={true}
+                                       value={firstPassword}
+                                       onChange={handleFirstPasswordChange}
+                                       InputProps={{style: { color: 'white' }}}
+                                       InputLabelProps={{style: { color: 'white' }}}
+                                       sx={sx_textbox}
+                            />
+                            <TextField id="password-last"
+                                       label="Bestätigung des Passworts"
+                                       variant="outlined"
+                                       type="password"
+                                       fullWidth={true}
+                                       required={true}
+                                       value={lastPassword}
+                                       onChange={handleLastPasswordChange}
+                                       InputProps={{style: { color: 'white' }}}
+                                       InputLabelProps={{style: { color: 'white' }}}
+                                       sx={sx_textbox}
+                            />
+                            <Box sx={{width: "100%", height: 10}} />
+                            <FormGroup>
+                                <FormControlLabel control={<Checkbox sx={sx_checkbox}/>}
+                                                  label={
+                                                      <Typography fontFamily="Arial" fontSize={18}>
+                                                          Ich bin mindestens 18 Jahre alt.
+                                                      </Typography>
+                                                  }
+                                />
+                                <FormControlLabel control={<Checkbox sx={sx_checkbox}/>}
+                                                  label={
+                                                      <Typography fontFamily="Arial" fontSize={18}>
+                                                          Ich habe die AGB und Datenschutzrichtlinien gelesen und stimmen diesen zu.
+                                                      </Typography>
+                                                  }
+                                />
+                            </FormGroup>
+                        </Stack>
+                    </Box>
                 </Fade>
+
+
                 <Fade in={boxNumber === 2} mountOnEnter unmountOnExit>
                     <Box sx={{ width: "100%", height: "100%", bgcolor: 'gray' }} />
                 </Fade>
             </Box>
 
-            <Box sx={style_box_footer}>
+            <Box sx={sx_footer}>
                 <ThemeProvider theme={footer_theme}>
                     <Grid
                         container
