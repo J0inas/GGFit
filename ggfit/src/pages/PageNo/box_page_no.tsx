@@ -9,6 +9,9 @@ import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {TextField} from "@mui/material";
+import {useState} from "react";
+import {Pages} from "@mui/icons-material";
+// import {} from "./reg_pages/";
 
 // Styling der Main Box:
 const style_box_data = {
@@ -17,19 +20,72 @@ const style_box_data = {
     bgcolor: "#404040"
 }
 
+
+
 // Aufbau der Main Box:
 function BoxData() {
     const theme = useTheme();
+    // Multi-Page-Logic:
+    const [page, setPage] = useState(1);
+
 
     return (
-        <Box sx={style_box_data} padding = "2rem" fontFamily="Menlo">
-            <h2>
-               Registrierung
-            </h2>
-            <Page1/>
-        </Box>
+        <>
+            <Box sx={style_box_data} padding = "2rem" fontFamily="Menlo">
+                <h2>
+                    Registrierung
+                </h2>
+                <div>
+                    {
+                        page === 1 ? <Page1/> : page === 2 ?  <Page2/> : <Page3/>
+                    }
+                </div>
+
+
+            </Box>
+            {
+                //  Aufbau der Footer Box:
+            }
+            <Box sx={style_box_footer}>
+                <ThemeProvider theme={footer_theme}>
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                    >
+                        <div>
+                            {
+                                // Back - Button - Bedingung
+                                page > 1 && (
+                                    <Button variant="outlined" color="white"
+                                            onClick={()=>{
+                                                const nextPage = page - 1;
+                                                setPage(nextPage);
+                                            }}><ArrowBackIosNewIcon/></Button>
+                                )
+                            }
+
+                        </div>
+                            {
+                                // Forward - Button - Bedingung
+                                page < 3 && (
+                                    <Button variant="outlined" color="white"
+                                            onClick={()=>{
+                                                const nextPage = page + 1;
+                                                setPage(nextPage);
+                                            }}><ArrowForwardIosIcon/></Button>
+                                )
+                            }
+                    </Grid>
+                </ThemeProvider>
+
+            </Box>
+        </>
+
     )
 }
+
 
 // 1. Page zur Registrierung
 function Page1(): React.JSX.Element{
@@ -84,6 +140,19 @@ function Page1(): React.JSX.Element{
 }
 
 // 2. Page
+function Page2(): React.JSX.Element{
+    return (
+        <div>
+            <Stack>
+                <Stack padding={2}>
+                    <h3>
+                        Deine Mom
+                    </h3>
+                </Stack>
+            </Stack>
+        </div>
+    )
+}
 /*
 
             <h3>
@@ -131,6 +200,13 @@ function Page1(): React.JSX.Element{
                         />
                 </Stack>
  */
+function Page3(): React.JSX.Element{
+    return (
+        <div>
+           Auf Lock.
+        </div>
+    )
+}
 // 4. Page
 /*
             <h3>
@@ -198,26 +274,7 @@ const footer_theme = createTheme({
     },
 });
 
-// Aufbau der Footer Box:
-function BoxFooter() {
 
-    return (
-        <Box sx={style_box_footer}>
-            <ThemeProvider theme={footer_theme}>
-                <Grid
-                    container
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                >
-                    <Button variant="outlined" color="white"><ArrowBackIosNewIcon/></Button>
-                    <Button variant="outlined" color="white"><ArrowForwardIosIcon/></Button>
-                </Grid>
-            </ThemeProvider>
-
-        </Box>
-    )
-}
 
 
 
@@ -229,7 +286,6 @@ export default function BoxNoProgressBar() {
         <Stack spacing={3}>
             <Box sx={{height: 10}}></Box>
             <BoxData></BoxData>
-            <BoxFooter></BoxFooter>
         </Stack>
     );
 }

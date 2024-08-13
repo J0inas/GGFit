@@ -10,7 +10,7 @@ export default function SimpleText() {
         <Box
             component="form"
             sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch', bgcolor: 'primary.main' },
+                '& .MuiTextField-root': { m: 1, width: '25ch', bgcolor: 'primary.main'},
             }}
             noValidate
             autoComplete="off"
