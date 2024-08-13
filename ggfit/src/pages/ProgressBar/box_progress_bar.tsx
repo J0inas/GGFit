@@ -6,12 +6,15 @@ import Stack from "@mui/system/Stack"
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Fade from "@mui/material/Fade"
+import Divider from "@mui/material/Divider"
+import Chip from "@mui/material/Chip"
 
 import LinearProgress, {linearProgressClasses } from "@mui/material/LinearProgress";
 import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import Typography from "@mui/material/Typography";
 
 
 // Styling der Progress Bar:
@@ -151,8 +154,13 @@ export default function BoxProgressBar() {
 
                 <Fade in={boxNumber === 0} mountOnEnter unmountOnExit>
                     <Box sx={{width: "100%", height: "100%"}}>
-                        <Stack spacing={3} direction="column">
-                            <Box sx={{width: "100%", height: 50}}/>
+                        <Stack spacing={4} direction="column">
+                            <Box sx={{width: "100%", height: 20}}/>
+                            <Divider textAlign="left"
+                                     sx={{"&::before, &::after": { borderColor: "#d0d0d0" }}}
+                            >
+                                <Typography fontFamily="Arial" fontSize={20}>Persönliche Daten</Typography>
+                            </Divider>
                             <Stack spacing={3} direction="row">
                                 <TextField id="first-name"
                                            label="Vorname"
@@ -177,7 +185,7 @@ export default function BoxProgressBar() {
                                            sx={sx_textbox}
                                 />
                             </Stack>
-                            <Box sx={{width: "100%", height: 50}} />
+                            <Box sx={{width: "100%", height: 10}} />
                             <TextField id="mail-first"
                                        label="E-Mail"
                                        variant="outlined"
@@ -190,7 +198,7 @@ export default function BoxProgressBar() {
                                        sx={sx_textbox}
                             />
                             <TextField id="mail-last"
-                                       label="Bestätigung E-Mail"
+                                       label="Bestätigung der E-Mail"
                                        variant="outlined"
                                        fullWidth={true}
                                        required={true}
