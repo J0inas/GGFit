@@ -920,13 +920,36 @@ export default function BoxNoProgressBar() {
                         justifyContent="space-between"
                         alignItems="center"
                     >
-                        <Button variant="outlined" color="white" onClick={() => decreaseBoxNumber()}>
-                            <ArrowBackIosNewIcon/>
-                        </Button>
-                        <Typography fontFamily="Arial" fontSize={16}>{boxNumber + 1}</Typography>
-                        <Button variant="outlined" color="white" onClick={() => increaseBoxNumber()}>
-                            <ArrowForwardIosIcon/>
-                        </Button>
+                        { // no backwards button on 1. page
+                            boxNumber >= 1 && (
+                                <Button variant="outlined" color="white" onClick={() => decreaseBoxNumber()}>
+                                    <ArrowBackIosNewIcon/>
+                                </Button>
+                            )
+                        }
+                        {
+                            boxNumber === 0 && (
+                                <Box sx={{ width: "6%"}}>
+                                </Box>
+                            )
+                        }
+                        <Box align="center" justify="space-between">
+                            <Typography fontFamily="Arial" fontSize={16} >{boxNumber + 1}</Typography>
+                        </Box>
+                        { // no forward button on last page
+                            boxNumber <= 5 && (
+                                <Button variant="outlined" color="white" onClick={() => increaseBoxNumber()}>
+                                    <ArrowForwardIosIcon/>
+                                </Button>
+                            )
+                        }
+                        {
+                            boxNumber === 6 && (
+                                <Box sx={{ width: "6%"}}>
+                                </Box>
+                            )
+                        }
+
                     </Grid>
                 </ThemeProvider>
             </Box>
