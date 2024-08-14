@@ -938,12 +938,26 @@ export default function BoxProgressBar() {
                         justifyContent="space-between"
                         alignItems="center"
                     >
-                        <Button variant="outlined" color="white" onClick={() => decreaseBoxNumber()}>
-                            <ArrowBackIosNewIcon/>
-                        </Button>
-                        <Button variant="outlined" color="white" onClick={() => increaseBoxNumber()}>
-                            <ArrowForwardIosIcon/>
-                        </Button>
+                        { // no backwards button on 1. page
+                            boxNumber >= 1 && (
+                                <Button variant="outlined" color="white" onClick={() => decreaseBoxNumber()}>
+                                    <ArrowBackIosNewIcon/>
+                                </Button>
+                            )
+                        }
+                        {
+                            boxNumber === 0 && (
+                                <Box sx={{ width: "6%"}}>
+                                </Box>
+                            )
+                        }
+                        { // no forward button on last page
+                            boxNumber <= 5 && (
+                                <Button variant="outlined" color="white" onClick={() => increaseBoxNumber()}>
+                                    <ArrowForwardIosIcon/>
+                                </Button>
+                            )
+                        }
                     </Grid>
                 </ThemeProvider>
             </Box>

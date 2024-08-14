@@ -949,7 +949,6 @@ export default function BoxNoProgressBar() {
                                 </Box>
                             )
                         }
-
                     </Grid>
                 </ThemeProvider>
             </Box>
