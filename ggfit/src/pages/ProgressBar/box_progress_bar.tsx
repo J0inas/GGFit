@@ -25,6 +25,8 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Typography from "@mui/material/Typography";
 
+import ExportTXT from './ExportTXT';
+
 
 // Styling der Progress Bar:
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
@@ -202,21 +204,95 @@ export default function BoxProgressBar() {
     const theme = useTheme();
 
     // ProgressBar:
-    const [progress, setProgress] = React.useState<number>(40);
-    const changeProgress = (delta: number) => {
-        setProgress((prevProgress) => Math.max(Math.min(prevProgress + delta, 100), 0));
+    const [progress, setProgress] = React.useState<number>(45);
+    const updateProgress = () => {
+        let totalProgress: number = 45
+
+        let progressInc: number = 6
+        if (genderGiven()) totalProgress += progressInc
+        if (ageGiven()) totalProgress += progressInc
+        if (heightGiven()) totalProgress += progressInc
+        if (weightGiven()) totalProgress += progressInc
+
+        progressInc = 7
+        if (boxNumber >= 3) totalProgress += progressInc
+
+        progressInc = 5
+        if (targetStepsGiven()) totalProgress += progressInc
+        if (targetWeightGiven()) totalProgress += progressInc
+        if (targetWaterGiven()) totalProgress += progressInc
+
+        progressInc = 3
+        if (usernameGiven()) totalProgress += progressInc
+        if (phoneNumberGiven()) totalProgress += progressInc
+        if (checkboxState2FA) totalProgress += progressInc
+
+        setProgress((prevProgress) => Math.max(Math.min(totalProgress, 100), 0));
     };
 
+    const firstNameGiven = () => {
+        return firstName != '';
+    }
+    const lastNameGiven = () => {
+        return lastName != '';
+    }
+    const firstMailGiven = () => {
+        return firstMail != '';
+    }
+    const lastMailGiven = () => {
+        return lastMail != '';
+    }
+
+    const firstPasswordGiven = () => {
+        return firstPassword != '';
+    }
+    const lastPasswordGiven = () => {
+        return lastPassword != '';
+    }
+
+    const genderGiven = () => {
+        return gender != '';
+    }
+    const ageGiven = () => {
+        return age != '';
+    }
+    const heightGiven = () => {
+        return height != '';
+    }
+    const weightGiven = () => {
+        return weight != '';
+    }
+
+    const targetStepsGiven = () => {
+        return (targetSteps != '' || checkboxTargetSteps);
+    }
+    const targetWeightGiven = () => {
+        return (targetWeight != '' || checkboxTargetWeight);
+    }
+    const targetWaterGiven = () => {
+        return (targetWater != '' || checkboxTargetWater);
+    }
+
+    const usernameGiven = () => {
+        return username != '';
+    }
+    const phoneNumberGiven = () => {
+        return phoneNumber != '+49';
+    }
 
     // Sliding der Anmeldung:
     const [boxNumber, setBoxNumber] = React.useState(0);
     const increaseBoxNumber = () => {
-        setBoxNumber((prevBoxNumber) => Math.min(prevBoxNumber + 1, 5));
+
+        if (boxNumber == 0 && (!firstNameGiven() || !lastNameGiven() || !firstMailGiven() || !lastMailGiven())) return;
+        if (boxNumber == 1 && (!firstPasswordGiven() || !lastPasswordGiven() || !checkboxStateAge || !checkboxStateTos)) return;
+        updateProgress()
+
+        setBoxNumber((prevBoxNumber) => Math.min(prevBoxNumber + 1, 6));
     }
     const decreaseBoxNumber = () => {
         setBoxNumber((prevBoxNumber) => Math.max(prevBoxNumber - 1, 0));
     }
-
 
     // Ausgefüllte Daten:
     const [firstName, setFirstName] = React.useState('');
@@ -244,7 +320,7 @@ export default function BoxProgressBar() {
     const [checkboxTargetWater, setCheckboxTargetWater] = React.useState(false);
 
     const [username, setUsername] = React.useState('');
-    const [phoneNumber, setPhoneNumber] = React.useState('');
+    const [phoneNumber, setPhoneNumber] = React.useState('+49');
     const [checkboxState2FA, setCheckboxState2FA] = React.useState(false);
 
     const handleFirstNameChange = (event: { target: { value: React.SetStateAction<string> } }) => {
@@ -277,13 +353,22 @@ export default function BoxProgressBar() {
         setGender(event.target.value);
     }
     const handleAgeChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-        setAge(event.target.value);
+        const value = event.target.value;
+        if (/^\d*$/.test(value)) {
+            setAge(value);
+        }
     }
     const handleHeightChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-        setHeight(event.target.value);
+        const value = event.target.value;
+        if (/^\d*$/.test(value)) {
+            setHeight(value);
+        }
     }
     const handleWeightChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-        setWeight(event.target.value);
+        const value = event.target.value;
+        if (/^\d*$/.test(value)) {
+            setWeight(value);
+        }
     }
 
     const handleSliderValueChange = (event: { target: { value: React.SetStateAction<string> } }) => {
@@ -291,19 +376,28 @@ export default function BoxProgressBar() {
     }
 
     const handleTargetStepsChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-        setTargetSteps(event.target.value);
+        const value = event.target.value;
+        if (/^\d*$/.test(value)) {
+            setTargetSteps(value);
+        }
     }
     const handleCheckboxTargetStepsChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setCheckboxTargetSteps(event.target.checked)
     }
     const handleTargetWeightChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-        setTargetWeight(event.target.value);
+        const value = event.target.value;
+        if (/^\d*$/.test(value)) {
+            setTargetWeight(value);
+        }
     }
     const handleCheckboxTargetWeightChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setCheckboxTargetWeight(event.target.checked)
     }
     const handleTargetWaterChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-        setTargetWater(event.target.value);
+        const value = event.target.value;
+        if (/^\d*$/.test(value)) {
+            setTargetWater(value);
+        }
     }
     const handleCheckboxTargetWaterChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setCheckboxTargetWater(event.target.checked)
@@ -313,21 +407,59 @@ export default function BoxProgressBar() {
         setUsername(event.target.value);
     }
     const handlePhoneNumberChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-        setPhoneNumber(event.target.value);
+        const value = event.target.value;
+        if (/^\+\d*$/.test(value)) {
+            setPhoneNumber(value);
+        }
     }
     const handleCheckboxState2FAChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setCheckboxState2FA(event.target.checked);
     }
 
 
+    // Ergebnisse:
+    const [resultsSaved, setResultsSaved] = React.useState(false);
+    const getData = () => {
+
+        const data = [
+            "firstName", firstNameGiven(),
+            "lastName", lastNameGiven(),
+            "firstMail", firstMailGiven(),
+            "lastMail", lastMailGiven(),
+            "firstPassword", firstPasswordGiven(),
+            "lastPassword", lastPasswordGiven(),
+            "checkboxStateAge", checkboxStateAge,
+            "checkboxStateTos", checkboxStateTos,
+            "gender", genderGiven(),
+            "age", ageGiven(),
+            "height", heightGiven(),
+            "weight", weightGiven(),
+            "sliderValue", sliderValue,
+            "targetSteps", targetStepsGiven(),
+            "targetWeight", targetWeightGiven(),
+            "targetWater", targetWaterGiven(),
+            "username", usernameGiven(),
+            "phoneNumber", phoneNumberGiven(),
+            "twofactor", checkboxState2FA,
+        ]
+
+        return data;
+    }
+
+
     // Aufbau des Formulars:
+    const timeout_fade = 200
     return (
         <Stack spacing={3}>
-            <Box sx={{height: 10}}><BorderLinearProgress variant="determinate" value={progress}/></Box>
+            <Box sx={{height: 10}}>
+                <Fade in={boxNumber >= 2} mountOnEnter unmountOnExit timeout={800}>
+                    <BorderLinearProgress variant="determinate" value={progress}/>
+                </Fade>
+            </Box>
 
             <Box sx={{ width: "100%", height: 520, overflow: 'hidden' }}>
 
-                <Fade in={boxNumber === 0} mountOnEnter unmountOnExit>
+                <Fade in={boxNumber === 0} mountOnEnter unmountOnExit timeout={timeout_fade}>
                     <Box sx={{width: "100%", height: "100%"}}>
                         <Stack spacing={4} direction="column">
                             <Box sx={{width: "100%", height: 20}}/>
@@ -390,7 +522,7 @@ export default function BoxProgressBar() {
                 </Fade>
 
 
-                <Fade in={boxNumber === 1} mountOnEnter unmountOnExit>
+                <Fade in={boxNumber === 1} mountOnEnter unmountOnExit timeout={timeout_fade}>
                     <Box sx={{ width: "100%", height: "100%"}}>
                         <Stack spacing={4} direction="column">
                             <Box sx={{width: "100%", height: 20}}/>
@@ -453,7 +585,7 @@ export default function BoxProgressBar() {
                 </Fade>
 
 
-                <Fade in={boxNumber === 2} mountOnEnter unmountOnExit>
+                <Fade in={boxNumber === 2} mountOnEnter unmountOnExit timeout={timeout_fade}>
                     <Box sx={{ width: "100%", height: "100%"}}>
                         <Stack spacing={4} direction="column">
                             <Box sx={{width: "100%", height: 20}}/>
@@ -499,12 +631,12 @@ export default function BoxProgressBar() {
                                     </Select>
                                 </FormControl>
                                 <TextField id="age"
-                                           label="Alter"
+                                           label="Alter (in Jahren)"
                                            variant="outlined"
                                            fullWidth={true}
                                            value={age}
                                            onChange={handleAgeChange}
-                                           InputProps={{style: { color: 'white' }}}
+                                           InputProps={{ style: { color: 'white' } }}
                                            InputLabelProps={{style: { color: 'white' }}}
                                            sx={sx_textbox}
                                 />
@@ -534,7 +666,7 @@ export default function BoxProgressBar() {
                 </Fade>
 
 
-                <Fade in={boxNumber === 3} mountOnEnter unmountOnExit>
+                <Fade in={boxNumber === 3} mountOnEnter unmountOnExit timeout={timeout_fade}>
                     <Box sx={{ width: "100%", height: "100%"}}>
                         <Stack spacing={4} direction="column">
                             <Box sx={{width: "100%", height: 20}}/>
@@ -561,7 +693,7 @@ export default function BoxProgressBar() {
                 </Fade>
 
 
-                <Fade in={boxNumber === 4} mountOnEnter unmountOnExit>
+                <Fade in={boxNumber === 4} mountOnEnter unmountOnExit timeout={timeout_fade}>
                     <Box sx={{ width: "100%", height: "100%"}}>
                         <Stack spacing={4} direction="column">
                             <Box sx={{width: "100%", height: 20}}/>
@@ -582,7 +714,7 @@ export default function BoxProgressBar() {
                                                style: { color: 'white' },
                                                sx: {
                                                    "& .MuiInputBase-input.Mui-disabled": {
-                                                       WebkitTextFillColor: "white",
+                                                       WebkitTextFillColor: "#909090",
                                                        color: "white"
                                                    }
                                                }
@@ -617,7 +749,7 @@ export default function BoxProgressBar() {
                                                style: { color: 'white' },
                                                sx: {
                                                    "& .MuiInputBase-input.Mui-disabled": {
-                                                       WebkitTextFillColor: "white",
+                                                       WebkitTextFillColor: "#909090",
                                                        color: "white"
                                                    }
                                                }
@@ -652,8 +784,8 @@ export default function BoxProgressBar() {
                                                style: { color: 'white' },
                                                sx: {
                                                    "& .MuiInputBase-input.Mui-disabled": {
-                                                       WebkitTextFillColor: "white",
-                                                       color: "white"
+                                                       WebkitTextFillColor: "#909090",
+                                                       color: "white",
                                                    }
                                                }
                                            }}
@@ -707,7 +839,7 @@ export default function BoxProgressBar() {
                 </Fade>
 
 
-                <Fade in={boxNumber === 5} mountOnEnter unmountOnExit>
+                <Fade in={boxNumber === 5} mountOnEnter unmountOnExit timeout={timeout_fade}>
                     <Box sx={{ width: "100%", height: "100%"}}>
                         <Stack spacing={4} direction="column">
                             <Box sx={{width: "100%", height: 20}}/>
@@ -753,6 +885,21 @@ export default function BoxProgressBar() {
                                     />
                                 </FormGroup>
                             </Box>
+                        </Stack>
+                    </Box>
+                </Fade>
+
+
+                <Fade in={boxNumber === 6} mountOnEnter unmountOnExit timeout={timeout_fade}>
+                    <Box sx={{ width: "100%", height: "100%"}}>
+                        <Stack spacing={4} direction="column">
+                            <Box sx={{width: "100%", height: 20}}/>
+                            <Divider textAlign="left"
+                                     sx={{"&::before, &::after": { borderColor: "#d0d0d0" }}}
+                            >
+                                <Typography fontFamily="Arial" fontSize={24}>Vielen Dank für die Teilnahme</Typography>
+                            </Divider>
+                            <ExportTXT data={getData()} />
                         </Stack>
                     </Box>
                 </Fade>
