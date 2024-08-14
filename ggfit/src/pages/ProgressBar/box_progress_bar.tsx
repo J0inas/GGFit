@@ -483,6 +483,7 @@ export default function BoxProgressBar() {
                             >
                                 <Typography fontFamily="Arial" fontSize={24}>Account-Informationen</Typography>
                             </Divider>
+                            <Typography fontFamily="Arial" fontSize={18}>Bitte fülle diese Felder aus, bevor du fortfahren kannst.</Typography>
                             <Stack spacing={3} direction="row">
                                 <TextField id="first-name"
                                            label="Vorname"
@@ -546,6 +547,7 @@ export default function BoxProgressBar() {
                             >
                                 <Typography fontFamily="Arial" fontSize={24}>Account-Informationen</Typography>
                             </Divider>
+                            <Typography fontFamily="Arial" fontSize={18}>Bitte fülle diese Felder aus, bevor du fortfahren kannst.</Typography>
                             <TextField id="password-first"
                                        label="Passwort"
                                        variant="outlined"
