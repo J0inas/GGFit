@@ -37,7 +37,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     },
     [`& .${linearProgressClasses.bar}`]: {
         borderRadius: 4,
-        backgroundColor: theme.palette.grey[300],
+        backgroundColor: theme.palette.blue, // theme.palette.grey[300]
     },
 }));
 
@@ -201,7 +201,8 @@ const marks_slider = [
 
 // Aufbau der Box:
 export default function BoxProgressBar() {
-    const theme = useTheme();
+    const theme = useTheme(
+    );
 
     // ProgressBar:
     const [progress, setProgress] = React.useState<number>(45);
@@ -351,69 +352,83 @@ export default function BoxProgressBar() {
 
     const handleGenderChange = (event: SelectChangeEvent) => {
         setGender(event.target.value);
+        updateProgress();
     }
     const handleAgeChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         const value = event.target.value;
         if (/^\d*$/.test(value)) {
             setAge(value);
+            updateProgress();
         }
     }
     const handleHeightChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         const value = event.target.value;
         if (/^\d*$/.test(value)) {
             setHeight(value);
+            updateProgress();
         }
     }
     const handleWeightChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         const value = event.target.value;
         if (/^\d*$/.test(value)) {
             setWeight(value);
+            updateProgress();
         }
     }
 
     const handleSliderValueChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-        setSliderValue(event.target.value)
+        setSliderValue(event.target.value);
+        updateProgress();
     }
 
     const handleTargetStepsChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         const value = event.target.value;
         if (/^\d*$/.test(value)) {
             setTargetSteps(value);
+            updateProgress();
         }
     }
     const handleCheckboxTargetStepsChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setCheckboxTargetSteps(event.target.checked)
+        updateProgress();
     }
     const handleTargetWeightChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         const value = event.target.value;
         if (/^\d*$/.test(value)) {
             setTargetWeight(value);
+            updateProgress();
         }
     }
     const handleCheckboxTargetWeightChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setCheckboxTargetWeight(event.target.checked)
+        updateProgress();
     }
     const handleTargetWaterChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         const value = event.target.value;
         if (/^\d*$/.test(value)) {
             setTargetWater(value);
+            updateProgress();
         }
     }
     const handleCheckboxTargetWaterChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setCheckboxTargetWater(event.target.checked)
+        updateProgress();
     }
 
     const handleUsernameChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setUsername(event.target.value);
+        updateProgress();
     }
     const handlePhoneNumberChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         const value = event.target.value;
         if (/^\+\d*$/.test(value)) {
             setPhoneNumber(value);
+            updateProgress();
         }
     }
     const handleCheckboxState2FAChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         setCheckboxState2FA(event.target.checked);
+        updateProgress();
     }
 
 

@@ -225,7 +225,7 @@ const footer_theme = createTheme({
 
 
 // Aufbau der Box:
-export default function BoxNoProgressBar() {
+export default function BoxNoProgressBar1() {
     const theme = useTheme();
 
     return (
