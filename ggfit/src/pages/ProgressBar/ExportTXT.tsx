@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 // @ts-ignore
 const ExportTXT = ({ data }) => {
 
-    const downloadCSV = () => {
+    const downloadtxt = () => {
         const csvString = "" + data
         const blob = new Blob([csvString], { type: 'text/csv' });
         const url = window.URL.createObjectURL(blob);
@@ -18,8 +18,8 @@ const ExportTXT = ({ data }) => {
     };
 
     return (
-        <Button variant="contained" onClick={downloadCSV}>
-            Export CSV
+        <Button variant="contained" onClick={downloadtxt}>
+            Export .txt
         </Button>
     );
 };
