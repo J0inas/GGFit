@@ -30,14 +30,14 @@ import ExportTXT from './ExportTXT';
 
 // Styling der Progress Bar:
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-    height: 10,
-    borderRadius: 4,
+    height: 18,
+    borderRadius: 5,
     [`&.${linearProgressClasses.colorPrimary}`]: {
         backgroundColor: theme.palette.grey[700],
     },
     [`& .${linearProgressClasses.bar}`]: {
         borderRadius: 4,
-        backgroundColor: theme.palette.blue, // theme.palette.grey[300]
+        backgroundColor: theme.palette.grey[200], // theme.palette.grey[300]
     },
 }));
 
