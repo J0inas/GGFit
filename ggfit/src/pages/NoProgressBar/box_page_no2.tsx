@@ -894,8 +894,16 @@ export default function BoxNoProgressBar() {
                             <Divider textAlign="left"
                                      sx={{"&::before, &::after": { borderColor: "#d0d0d0" }}}
                             >
-                                <Typography fontFamily="Arial" fontSize={24}>Vielen Dank für die Teilnahme</Typography>
+                                <Typography fontFamily="Arial" fontSize={24}>Vielen Dank für deine Teilnahme</Typography>
                             </Divider>
+                            <Box>
+                                <Typography fontFamily="Arial" fontSize={18}>
+                                    Du hast jetzt die Möglichkeit deine Registrierung zu vervollständigen.
+                                </Typography>
+                                <Typography fontFamily="Arial" fontSize={18}>
+                                    Wenn du fertig bist, drück einfach auf den Knopf. ⬇️
+                                </Typography>
+                            </Box>
                             <ExportTXT data={getData()} />
                         </Stack>
                     </Box>
