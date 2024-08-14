@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import BoxPageNo from "@/pages/NoProgressBar/box_page_no";
 import BoxProgressBar from "@/pages/ProgressBar/box_progress_bar";
-import BoxNoProgressBar from "@/pages/NoProgressBar/box_page_no";
+import BoxNoProgressBar from "@/pages/NoProgressBar/box_page_no2";
 
 
 // Style der Modal Box:
@@ -43,7 +43,7 @@ export default function BasicModal() {
             >
                 <Fade in={open}>
                     <Box sx={style}>
-                        <BoxProgressBar/>
+                        <BoxNoProgressBar/>
                     </Box>
                 </Fade>
             </Modal>
