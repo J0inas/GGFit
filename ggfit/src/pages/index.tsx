@@ -6,6 +6,7 @@ import ModalAnmelden from "@/pages/modal_anmelden";
 import ModalRegistrieren from "@/pages/modal_registrieren";
 import {Stack, Typography} from '@mui/material';
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,6 +40,19 @@ export default function Home() {
                     </Box>
                 </Stack>
             </main>
+            <Box sx={{ position: 'absolute', bottom: 0, left: 0, padding: 2 }}>
+                <Stack direction="row" spacing={2}>
+                    <Button variant="text">
+                        <Typography fontFamily="Arial" color="#FFFFFF" fontSize={12}>Impressum</Typography>
+                    </Button>
+                    <Button variant="text">
+                        <Typography fontFamily="Arial" color="#FFFFFF" fontSize={12}>Datenschutzerklärung</Typography>
+                    </Button>
+                    <Button>
+                        <Typography fontFamily="Arial" color="#FFFFFF" fontSize={12}>AGB</Typography>
+                    </Button>
+                </Stack>
+            </Box>
         </>
     );
 }
