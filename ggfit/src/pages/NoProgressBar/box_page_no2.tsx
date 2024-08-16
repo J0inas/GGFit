@@ -878,7 +878,7 @@ export default function BoxNoProgressBar() {
                                     }
                                                       label={
                                                           <Typography fontFamily="Arial" fontSize={18}>
-                                                              Ich möchte 2-Faktor-Authentifierung über SMS aktivieren.
+                                                              Ich möchte 2-Faktor-Authentifizierung über SMS aktivieren.
                                                           </Typography>
                                                       }
                                     />

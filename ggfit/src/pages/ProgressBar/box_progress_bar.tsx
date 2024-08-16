@@ -205,12 +205,11 @@ export default function BoxProgressBar() {
     );
 
     // ProgressBar:
-    const [progress, setProgress] = React.useState<number>(45);
+    const [progress, setProgress] = React.useState<number>(51);
     const updateProgress = () => {
-        let totalProgress: number = 45
+        let totalProgress: number = 51
 
         let progressInc: number = 6
-        if (genderGiven()) totalProgress += progressInc
         if (ageGiven()) totalProgress += progressInc
         if (heightGiven()) totalProgress += progressInc
         if (weightGiven()) totalProgress += progressInc
@@ -306,7 +305,7 @@ export default function BoxProgressBar() {
     const [checkboxStateAge, setCheckboxStateAge] = React.useState(false);
     const [checkboxStateTos, setCheckboxStateTos] = React.useState(false);
 
-    const [gender, setGender] = React.useState('');
+    const [gender, setGender] = React.useState(4);
     const [age, setAge] = React.useState('');
     const [height, setHeight] = React.useState('');
     const [weight, setWeight] = React.useState('');
@@ -352,7 +351,6 @@ export default function BoxProgressBar() {
 
     const handleGenderChange = (event: SelectChangeEvent) => {
         setGender(event.target.value);
-        updateProgress();
     }
     const handleAgeChange = (event: { target: { value: React.SetStateAction<string> } }) => {
         const value = event.target.value;
@@ -896,7 +894,7 @@ export default function BoxProgressBar() {
                                     }
                                                       label={
                                                           <Typography fontFamily="Arial" fontSize={18}>
-                                                              Ich möchte 2-Faktor-Authentifierung über SMS aktivieren.
+                                                              Ich möchte 2-Faktor-Authentifizierung über SMS aktivieren.
                                                           </Typography>
                                                       }
                                     />
