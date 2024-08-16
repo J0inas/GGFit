@@ -80,7 +80,7 @@ export default function ModalAnmelden() {
             >
                 <Fade in={open}>
                     <Box sx={style}>
-                        <BoxProgressBar/>
+                        <BoxNoProgressBar/>
                     </Box>
                 </Fade>
             </Modal>

@@ -912,17 +912,15 @@ export default function BoxProgressBar() {
                             <Divider textAlign="left"
                                      sx={{"&::before, &::after": { borderColor: "#d0d0d0" }}}
                             >
-                                <Typography fontFamily="Arial" fontSize={24}>Vielen Dank für deine Teilnahme</Typography>
+                                <Typography fontFamily="Arial" fontSize={24}>Registrierung abgeschlossen</Typography>
                             </Divider>
+                            <Box height={10}></Box>
                             <Box>
-                                <Typography fontFamily="Arial" fontSize={18}>
-                                    Du hast jetzt die Möglichkeit deine Registrierung zu vervollständigen und die Leiste zu schließen! ⬆️
-                                </Typography>
-                                <Typography fontFamily="Arial" fontSize={18}>
-                                    Wenn du fertig bist, drück einfach auf den Knopf. ⬇️
+                                <Typography fontFamily="Arial" fontSize={18} align="justify">
+                                    Du hast abschließend noch die Möglichkeit deine Account Daten zu vervollständigen. Deinen Fortschritt
+                                    kannst du oben sehen. Wenn du fertig bist, gehe einfach zur nächsten Seite. Viel Spaß mit GGFit!
                                 </Typography>
                             </Box>
-                            <ExportTXT data={getData()} />
                         </Stack>
                     </Box>
                 </Fade>
@@ -952,7 +950,7 @@ export default function BoxProgressBar() {
                             )
                         }
                         { // no forward button on last page
-                            boxNumber <= 5 && (
+                            boxNumber <= 6 && (
                                 <Button variant="outlined" color="white" onClick={() => increaseBoxNumber()}>
                                     <ArrowForwardIosIcon/>
                                 </Button>
