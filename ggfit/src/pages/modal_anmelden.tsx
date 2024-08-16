@@ -3,9 +3,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import BoxPageNo from "@/pages/NoProgressBar/box_page_no";
 import BoxProgressBar from "@/pages/ProgressBar/box_progress_bar";
 import BoxNoProgressBar from "@/pages/NoProgressBar/box_page_no2";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
 
 
 // Style der Modal Box:
@@ -26,15 +27,51 @@ const style = {
 };
 
 
+// Styling des Buttons:
+// Styling der Footer Box:
+const sx_footer = {
+    width: "100%",
+    height: 40,
+}
+
+declare module '@mui/material/styles' {
+    interface Palette {
+        white: Palette['primary'];
+    }
+
+    interface PaletteOptions {
+        white?: PaletteOptions['primary'];
+    }
+}
+
+declare module '@mui/material/Button' {
+    interface ButtonPropsColorOverrides {
+        white: true;
+    }
+}
+
+const footer_theme = createTheme({
+    palette: {
+        white: {
+            main: '#F0F0F0',
+        },
+    },
+});
+
+
 // Aufbau des Modals:
-export default function BasicModal() {
+export default function ModalAnmelden() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     return (
         <div>
-            <Button variant="contained" onClick={handleOpen}>Registrierung</Button>
+            <ThemeProvider theme={footer_theme}>
+                <Button variant="contained" color="white" onClick={handleOpen}>
+                    <Typography fontFamily="Arial" color="#202020">Anmelden</Typography>
+                </Button>
+            </ThemeProvider>
             <Modal
                 open={open}
                 onClose={handleClose}
